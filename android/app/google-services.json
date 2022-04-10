@@ -1,0 +1,92 @@
+{
+  "project_info": {
+    "project_number": "515108636845",
+    "project_id": "fynnow-group",
+    "storage_bucket": "fynnow-group.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:515108636845:android:856e3f3b55ef756a631e24",
+        "android_client_info": {
+          "package_name": "com.example.demoecommerce"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "515108636845-eu6fhj6i92u335hli674347p43k8hd6v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.demoecommerce",
+            "certificate_hash": "0c79645879f3b96dee984f92c7c34292bea447ca"
+          }
+        },
+        {
+          "client_id": "515108636845-qppt4ho22cgugn52emuq97t36h7q6dmb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA2EXKnCMRJ-eJ9w8GCFR7THn30GAd9Mws"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "515108636845-qppt4ho22cgugn52emuq97t36h7q6dmb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:515108636845:android:81f110a14f5e4dea631e24",
+        "android_client_info": {
+          "package_name": "com.example.fyn"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "515108636845-hvqn2k9vjid7pv50tje335221sp28mft.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.fyn",
+            "certificate_hash": "0c79645879f3b96dee984f92c7c34292bea447ca"
+          }
+        },
+        {
+          "client_id": "515108636845-upas14dussjnktc0o3434kvt0hnnogh8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.fyn",
+            "certificate_hash": "c40fb448169867b4f10c33338c96ab03961235cc"
+          }
+        },
+        {
+          "client_id": "515108636845-qppt4ho22cgugn52emuq97t36h7q6dmb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA2EXKnCMRJ-eJ9w8GCFR7THn30GAd9Mws"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "515108636845-qppt4ho22cgugn52emuq97t36h7q6dmb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
