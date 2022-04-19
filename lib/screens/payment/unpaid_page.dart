@@ -39,7 +39,6 @@ class _UnpaidPageState extends State<UnpaidPage> {
     );
 
     return Material(
-        color: Colors.white,
         child: SafeArea(
           child: LayoutBuilder(
               builder: (_, constraints) => SingleChildScrollView(

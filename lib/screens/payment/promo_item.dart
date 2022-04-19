@@ -19,7 +19,6 @@ class PromoItem extends StatelessWidget {
                 height: 250,
                 margin: EdgeInsets.symmetric(horizontal: 16.0),
                 decoration: BoxDecoration(
-                    color: Colors.white,
                     boxShadow: shadow,
                     borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(10),
@@ -42,7 +41,6 @@ class PromoItem extends StatelessWidget {
                                   style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 12,
-                                    color: darkGrey,
                                   ),
                                 ),
                                 Padding(

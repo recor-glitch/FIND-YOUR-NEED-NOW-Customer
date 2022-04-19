@@ -1,7 +1,8 @@
+import 'package:demoecommerce/Components/customsnackbar.dart';
+import 'package:demoecommerce/Infrastructure/userfcade.dart';
 import 'package:demoecommerce/app_properties.dart';
 import 'package:demoecommerce/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:country_code_picker/country_code_picker.dart';
 
 class ForgotPasswordPage extends StatefulWidget {
   @override
@@ -9,24 +10,11 @@ class ForgotPasswordPage extends StatefulWidget {
 }
 
 class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
-  TextEditingController phoneNumber = TextEditingController();
+  final _formkey = GlobalKey<FormState>();
 
   GlobalKey prefixKey = GlobalKey();
   double prefixWidth = 0;
-  String? error;
-
-  Widget prefix() {
-    return Container(
-        key: prefixKey,
-        margin: EdgeInsets.only(right: 4.0),
-        decoration: BoxDecoration(
-            border:
-                Border(bottom: BorderSide(color: Colors.black, width: 0.5))),
-        child: CountryCodePicker(
-          initialSelection: 'IN',
-          favorite: ['+91', 'IN'],
-        ));
-  }
+  String? error, email;
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +27,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
     );
 
     Widget title = Text(
-      'OTP Verification',
+      'Reset Password',
       style: TextStyle(
           color: Colors.white,
           fontSize: 34.0,
@@ -56,7 +44,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
     Widget subTitle = Padding(
         padding: const EdgeInsets.only(right: 56.0),
         child: Text(
-          'Enter your registered mobile number to get the OTP',
+          "Enter your registered email address and we'll send you a link to reset your password",
           style: TextStyle(
             color: Colors.white,
             fontSize: 16.0,
@@ -68,19 +56,26 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
       bottom: 40,
       child: InkWell(
         onTap: () {
-          if (phoneNumber.text.isNotEmpty && phoneNumber.text.length == 10) {
-            Navigator.pushNamed(context, '/otp', arguments: phoneNumber.text);
-          } else {
-            setState(() {
-              error = kInvalidNumber;
+          if (_formkey.currentState!.validate()) {
+            _formkey.currentState!.save();
+
+            UserFcade fcade = UserFcade();
+            fcade.ResetPassword(email!).then((value) {
+              if (value == 'success') {
+                Navigator.pop(context);
+              } else {
+                CustomSnackbar(value, context);
+              }
             });
+          } else {
+            CustomSnackbar(error!, context);
           }
         },
         child: Container(
           width: MediaQuery.of(context).size.width / 2,
           height: 80,
           child: Center(
-              child: new Text("Send OTP",
+              child: new Text("Reset",
                   style: const TextStyle(
                       color: const Color(0xfffefefe),
                       fontWeight: FontWeight.w600,
@@ -123,20 +118,30 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: <Widget>[
-                prefix(),
                 Flexible(
                   child: Padding(
                     padding: const EdgeInsets.only(top: 8.0),
-                    child: TextField(
-                      onChanged: (value) {
-                        setState(() {
+                    child: Form(
+                      key: _formkey,
+                      child: TextFormField(
+                        onSaved: (newValue) => email = newValue,
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            error = kEmailNullError;
+                          } else if (!emailValidatorRegExp.hasMatch(value)) {
+                            error = kInvalidEmailError;
+                          }
+                        },
+                        keyboardType: TextInputType.emailAddress,
+                        onChanged: (value) {
                           error = null;
-                        });
-                      },
-                      decoration: InputDecoration(errorText: error),
-                      controller: phoneNumber,
-                      style: TextStyle(fontSize: 16.0),
-                      keyboardType: TextInputType.phone,
+                        },
+                        decoration: InputDecoration(
+                          prefixIcon: Icon(Icons.email),
+                          hintText: 'example@gmail.com',
+                        ),
+                        style: TextStyle(fontSize: 16.0),
+                      ),
                     ),
                   ),
                 ),
@@ -148,32 +153,6 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
       ),
     );
 
-    Widget resendAgainText = Padding(
-        padding: const EdgeInsets.only(bottom: 20),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              "Didn't receive the OPT? ",
-              style: TextStyle(
-                fontStyle: FontStyle.italic,
-                color: Color.fromRGBO(255, 255, 255, 0.5),
-                fontSize: 14.0,
-              ),
-            ),
-            InkWell(
-              onTap: () {},
-              child: Text(
-                'Resend again',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 14.0,
-                ),
-              ),
-            ),
-          ],
-        ));
     return GestureDetector(
       onTap: () => FocusScope.of(context).requestFocus(new FocusNode()),
       child: Container(
@@ -201,7 +180,6 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                       Spacer(flex: 2),
                       phoneForm,
                       Spacer(flex: 2),
-                      resendAgainText
                     ],
                   ),
                 )

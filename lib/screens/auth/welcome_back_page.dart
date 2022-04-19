@@ -113,7 +113,9 @@ class _WelcomeBackPageState extends State<WelcomeBackPage> {
             ),
           ),
           InkWell(
-            onTap: () {},
+            onTap: () {
+              Navigator.pushNamed(context, '/reset');
+            },
             child: Text(
               'Reset password',
               style: TextStyle(

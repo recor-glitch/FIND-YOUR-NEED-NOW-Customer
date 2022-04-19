@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:demoecommerce/app_properties.dart';
-import 'package:demoecommerce/screens/auth/welcome_back_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -43,7 +42,7 @@ class _SplashScreenState extends State<SplashScreen>
       if (!futuredata.exists) {
         Navigator.pushReplacementNamed(context, '/phn');
       } else {
-        Navigator.pushReplacementNamed(context, '/intro');
+        Navigator.pushReplacementNamed(context, '/home');
       }
     } else {
       Navigator.pushReplacementNamed(context, '/login');

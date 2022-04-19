@@ -1,4 +1,3 @@
-
 import 'package:demoecommerce/app_properties.dart';
 import 'package:demoecommerce/models/product.dart';
 import 'package:demoecommerce/screens/search_page.dart';
@@ -57,25 +56,20 @@ class _ProductPageState extends State<ProductPage> {
     );
 
     return Scaffold(
-      backgroundColor: yellow,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0.0,
         iconTheme: IconThemeData(color: darkGrey),
         actions: <Widget>[
           IconButton(
-            icon: new SvgPicture.asset(
-              'assets/icons/search_icon.svg',
-              fit: BoxFit.scaleDown,
-            ),
+            icon: Icon(Icons.search, size: 30),
             onPressed: () => Navigator.of(context)
                 .push(MaterialPageRoute(builder: (_) => SearchPage())),
           )
         ],
         title: Text(
           'Headphones',
-          style: const TextStyle(
-              color: darkGrey, fontWeight: FontWeight.w500, fontSize: 18.0),
+          style: TextStyle(fontWeight: FontWeight.w500, fontSize: 18.0),
         ),
       ),
       body: Stack(

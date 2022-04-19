@@ -43,15 +43,23 @@ dependencies:
   intl: ^0.17.0
   numberpicker: ^2.1.1
   flare_splash_screen: ^4.0.0
-  flutter_svg: ^0.23.0+1
+  flutter_svg: ^1.0.3
   firebase_auth: ^3.3.12
   cloud_firestore: ^3.1.11
+  firebase_storage: ^10.2.12
   firebase_core: ^1.14.0
   google_sign_in: ^5.2.4
   either_dart: ^0.1.4
   flutter_facebook_auth: ^4.1.2
   pinput: ^2.2.7
   google_fonts: ^2.3.1
+  image_picker: ^0.8.5
+  flutter_bloc: ^8.0.1
+  connectivity_plus: ^2.3.0
+  adobe_xd: ^2.0.1
+  hive: ^2.1.0
+  permission_handler: ^9.2.0
+  path_provider: ^2.0.9
 
 
 dev_dependencies:

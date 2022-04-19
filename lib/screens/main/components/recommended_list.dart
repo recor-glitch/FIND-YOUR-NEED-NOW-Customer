@@ -38,7 +38,6 @@ class RecommendedList extends StatelessWidget {
                   child: Text(
                 'Recommended',
                 style: TextStyle(
-                    color: darkGrey,
                     fontSize: 16.0,
                     fontWeight: FontWeight.bold),
               )),

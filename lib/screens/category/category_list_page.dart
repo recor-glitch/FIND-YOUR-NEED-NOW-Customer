@@ -63,7 +63,6 @@ class _CategoryListPageState extends State<CategoryListPage> {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: Color(0xffF9F9F9),
       child: Container(
         margin: const EdgeInsets.only(top: kToolbarHeight),
         padding: EdgeInsets.symmetric(horizontal: 16.0),
@@ -77,7 +76,6 @@ class _CategoryListPageState extends State<CategoryListPage> {
                 child: Text(
                   'Category List',
                   style: TextStyle(
-                    color: darkGrey,
                     fontSize: 22,
                     fontWeight: FontWeight.bold,
                   ),
@@ -87,18 +85,15 @@ class _CategoryListPageState extends State<CategoryListPage> {
             Container(
               padding: EdgeInsets.only(left: 16.0),
               decoration: BoxDecoration(
+                border: Border.all(color: Colors.grey),
                 borderRadius: BorderRadius.all(Radius.circular(5)),
-                color: Colors.white,
               ),
               child: TextField(
                 controller: searchController,
                 decoration: InputDecoration(
                     border: InputBorder.none,
                     hintText: 'Search',
-                    prefixIcon: SvgPicture.asset(
-                      'assets/icons/search_icon.svg',
-                      fit: BoxFit.scaleDown,
-                    )),
+                    prefixIcon: Icon(Icons.search, size: 30)),
                 onChanged: (value) {
                   if (value.isNotEmpty) {
                     List<Category> tempList = [];

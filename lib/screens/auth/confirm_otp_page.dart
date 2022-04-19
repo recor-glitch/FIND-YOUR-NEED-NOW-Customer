@@ -1,3 +1,4 @@
+import 'package:demoecommerce/Components/customsnackbar.dart';
 import 'package:demoecommerce/Infrastructure/userfcade.dart';
 import 'package:demoecommerce/app_properties.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -166,20 +167,22 @@ class _OtpFormState extends State<OtpForm> {
         forceResendingToken: _resendtoken,
         phoneNumber: '+91 ${widget.phn}',
         verificationCompleted: (PhoneAuthCredential credential) async {
-          await fcade.LinkWithCredential(credential).then((value) {
+          fcade.LinkWithCredential(credential).then((value) {
             if (value == 'success') {
-              Navigator.pushReplacementNamed(context, '/intro');
-            } else {
-              setState(() {
-                error = value;
+              fcade.StoreUserdata(widget.phn).then((storevalue) {
+                if (storevalue == 'success') {
+                  Navigator.pushReplacementNamed(context, '/intro');
+                } else {
+                  CustomSnackbar(storevalue, context);
+                }
               });
+            } else {
+              CustomSnackbar(value, context);
             }
           });
         },
         verificationFailed: (FirebaseAuthException e) {
-          setState(() {
-            error = e.code.replaceAll('-', ' ');
-          });
+          CustomSnackbar(e.code.replaceAll('-', ' '), context);
         },
         codeSent: (String verificationId, int? resendToken) {
           verificationcode = verificationId;
@@ -263,17 +266,19 @@ class _OtpFormState extends State<OtpForm> {
                   AuthCredential credential = GeneratePhnCredential();
                   fcade.LinkWithCredential(credential).then((value) {
                     if (value == 'success') {
-                      Navigator.pushReplacementNamed(context, '/intro');
-                    } else {
-                      setState(() {
-                        error = value;
+                      fcade.StoreUserdata(widget.phn).then((storevalue) {
+                        if (storevalue == 'success') {
+                          Navigator.pushReplacementNamed(context, '/intro');
+                        } else {
+                          CustomSnackbar(storevalue, context);
+                        }
                       });
+                    } else {
+                      CustomSnackbar(value, context);
                     }
                   });
                 } else {
-                  setState(() {
-                    error = 'Invalid Pin';
-                  });
+                  CustomSnackbar('Invalid Pin', context);
                 }
               },
               child: Container(

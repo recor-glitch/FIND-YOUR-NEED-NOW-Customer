@@ -46,7 +46,6 @@ class _CheckOutPageState extends State<CheckOutPage> {
         child: Center(
           child: Text("Check Out",
               style: const TextStyle(
-                  color: const Color(0xfffefefe),
                   fontWeight: FontWeight.w600,
                   fontStyle: FontStyle.normal,
                   fontSize: 20.0)),
@@ -55,7 +54,6 @@ class _CheckOutPageState extends State<CheckOutPage> {
     );
 
     return Scaffold(
-      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0.0,
@@ -69,8 +67,7 @@ class _CheckOutPageState extends State<CheckOutPage> {
         ],
         title: Text(
           'Checkout',
-          style: TextStyle(
-              color: darkGrey, fontWeight: FontWeight.w500, fontSize: 18.0),
+          style: TextStyle(fontWeight: FontWeight.w500, fontSize: 18.0),
         ),
       ),
       body: LayoutBuilder(
@@ -125,10 +122,7 @@ class _CheckOutPageState extends State<CheckOutPage> {
                   padding: const EdgeInsets.all(16.0),
                   child: Text(
                     'Payment',
-                    style: TextStyle(
-                        fontSize: 20,
-                        color: darkGrey,
-                        fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                 ),
                 SizedBox(

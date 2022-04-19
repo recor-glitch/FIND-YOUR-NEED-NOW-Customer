@@ -77,7 +77,6 @@ class _PaymentPageState extends State<PaymentPage> {
     );
 
     return Scaffold(
-      backgroundColor: Colors.white,
       body: LayoutBuilder(
         builder: (_, constraints) => GestureDetector(
           onPanDown: (val) {},

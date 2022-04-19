@@ -1,5 +1,9 @@
+import 'dart:io' as i;
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:demoecommerce/constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:image_picker/image_picker.dart';
 
 class UserFcade {
   Future<String> CreateUserWithEmailandPass(String email, String pass) async {
@@ -12,8 +16,7 @@ class UserFcade {
     }
   }
 
-  Future<String> StoreUserdata(
-      String phn) async {
+  Future<String> StoreUserdata(String phn) async {
     if (FirebaseAuth.instance.currentUser != null) {
       try {
         await FirebaseFirestore.instance
@@ -21,7 +24,8 @@ class UserFcade {
             .doc(FirebaseAuth.instance.currentUser!.uid)
             .set({
           'uid': FirebaseAuth.instance.currentUser!.uid,
-          'phn': phn
+          'phn': phn,
+          'profile': ''
         });
         return 'success';
       } on FirebaseException catch (exception) {
@@ -67,5 +71,43 @@ class UserFcade {
     } on FirebaseException catch (exeption) {
       return exeption.code.replaceAll('-', ' ');
     }
+  }
+
+  Future<void> ProfileUpload(XFile img) async {
+    String imgurl = "";
+    Reference ref = FirebaseStorage.instance
+        .ref('profilepic')
+        .child(FirebaseAuth.instance.currentUser!.uid);
+
+    try {
+      await ref.putFile(i.File(img.path));
+      imgurl = await ref.getDownloadURL();
+      if (imgurl != "") {
+        await FirebaseFirestore.instance
+            .collection('user')
+            .doc(FirebaseAuth.instance.currentUser!.uid)
+            .update({'profile': imgurl});
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future<void> RemoveProfile() async {
+    await FirebaseFirestore.instance
+        .collection('user')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .update({'profile': ''});
+    Reference ref = FirebaseStorage.instance
+        .ref('profilepic')
+        .child(FirebaseAuth.instance.currentUser!.uid);
+
+    try {
+      await ref.delete();
+    } catch (e) {}
+  }
+
+  Future<void> SignOut() async {
+    await FirebaseAuth.instance.signOut();
   }
 }

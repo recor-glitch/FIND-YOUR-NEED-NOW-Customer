@@ -1,13 +1,15 @@
-
+import 'package:demoecommerce/BusinessLogic/connectioncheck/cubit/connectioncheck_cubit.dart';
 import 'package:demoecommerce/app_properties.dart';
 import 'package:demoecommerce/custom_background.dart';
 import 'package:demoecommerce/models/product.dart';
 import 'package:demoecommerce/screens/category/category_list_page.dart';
+import 'package:demoecommerce/screens/nointernet.dart';
 import 'package:demoecommerce/screens/notifications_page.dart';
 import 'package:demoecommerce/screens/profile_page.dart';
 import 'package:demoecommerce/screens/search_page.dart';
 import 'package:demoecommerce/screens/shop/check_out_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'components/custom_bottom_bar.dart';
 import 'components/product_list.dart';
@@ -103,7 +105,7 @@ class _MainPageState extends State<MainPage>
                   timelines[0],
                   style: TextStyle(
                       fontSize: timelines[0] == selectedTimeline ? 20 : 14,
-                      color: darkGrey),
+                      ),
                 ),
               ),
             ),
@@ -135,7 +137,7 @@ class _MainPageState extends State<MainPage>
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         fontSize: timelines[1] == selectedTimeline ? 20 : 14,
-                        color: darkGrey)),
+                        )),
               ),
             ),
             Flexible(
@@ -166,7 +168,7 @@ class _MainPageState extends State<MainPage>
                     textAlign: TextAlign.right,
                     style: TextStyle(
                         fontSize: timelines[2] == selectedTimeline ? 20 : 14,
-                        color: darkGrey)),
+                        )),
               ),
             ),
           ],
@@ -190,47 +192,51 @@ class _MainPageState extends State<MainPage>
       controller: tabController,
     );
 
-    return Scaffold(
+    return BlocBuilder<ConnectioncheckCubit, ConnectioncheckState>(
+        builder: (context, connection_state) {
+      if (connection_state is CheckDisconnected) {
+        return NoInternet();
+      } else {
+        return Scaffold(
       bottomNavigationBar: CustomBottomBar(controller: bottomTabController),
-      body: CustomPaint(
-        painter: MainBackground(),
-        child: TabBarView(
-          controller: bottomTabController,
-          physics: NeverScrollableScrollPhysics(),
-          children: <Widget>[
-            SafeArea(
-              child: NestedScrollView(
-                headerSliverBuilder:
-                    (BuildContext context, bool innerBoxIsScrolled) {
-                  // These are the slivers that show up in the "outer" scroll view.
-                  return <Widget>[
-                    SliverToBoxAdapter(
-                      child: appBar,
+      body: TabBarView(
+        controller: bottomTabController,
+        physics: NeverScrollableScrollPhysics(),
+        children: <Widget>[
+          SafeArea(
+            child: NestedScrollView(
+              headerSliverBuilder:
+                  (BuildContext context, bool innerBoxIsScrolled) {
+                // These are the slivers that show up in the "outer" scroll view.
+                return <Widget>[
+                  SliverToBoxAdapter(
+                    child: appBar,
+                  ),
+                  SliverToBoxAdapter(
+                    child: topHeader,
+                  ),
+                  SliverToBoxAdapter(
+                    child: ProductList(
+                      products: products,
                     ),
-                    SliverToBoxAdapter(
-                      child: topHeader,
-                    ),
-                    SliverToBoxAdapter(
-                      child: ProductList(
-                        products: products,
-                      ),
-                    ),
-                    SliverToBoxAdapter(
-                      child: tabBar,
-                    )
-                  ];
-                },
-                body: TabView(
-                  tabController: tabController,
-                ),
+                  ),
+                  SliverToBoxAdapter(
+                    child: tabBar,
+                  )
+                ];
+              },
+              body: TabView(
+                tabController: tabController,
               ),
             ),
-            CategoryListPage(),
-            CheckOutPage(),
-            ProfilePage()
-          ],
-        ),
+          ),
+          CategoryListPage(),
+          CheckOutPage(),
+          ProfilePage()
+        ],
       ),
     );
+      }
+    });
   }
 }
