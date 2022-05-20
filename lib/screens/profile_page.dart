@@ -1,9 +1,7 @@
 import 'package:demoecommerce/BusinessLogic/theme/cubit/theme_cubit.dart';
 import 'package:demoecommerce/screens/faq_page.dart';
-import 'package:demoecommerce/screens/payment/payment_page.dart';
 import 'package:demoecommerce/screens/settings/settings_page.dart';
 import 'package:demoecommerce/screens/tracking_page.dart';
-import 'package:demoecommerce/screens/wallet/wallet_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -144,21 +142,6 @@ class ProfilePage extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             IconButton(
-                              icon: Image.asset('assets/icons/wallet.png'),
-                              onPressed: () => Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                      builder: (_) => WalletPage())),
-                            ),
-                            Text(
-                              'Wallet',
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            )
-                          ],
-                        ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            IconButton(
                               icon: Image.asset('assets/icons/truck.png'),
                               onPressed: () => Navigator.of(context).push(
                                   MaterialPageRoute(
@@ -175,9 +158,7 @@ class ProfilePage extends StatelessWidget {
                           children: <Widget>[
                             IconButton(
                               icon: Image.asset('assets/icons/card.png'),
-                              onPressed: () => Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                      builder: (_) => PaymentPage())),
+                              onPressed: () {},
                             ),
                             Text(
                               'Payment',

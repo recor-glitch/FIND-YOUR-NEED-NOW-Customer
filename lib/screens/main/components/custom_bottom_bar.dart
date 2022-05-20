@@ -1,5 +1,6 @@
+import 'package:demoecommerce/BusinessLogic/HomeListing/cubit/homelisting_cubit.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CustomBottomBar extends StatelessWidget {
   final TabController controller;
@@ -16,6 +17,8 @@ class CustomBottomBar extends StatelessWidget {
           IconButton(
             icon: Icon(Icons.home, size: 30),
             onPressed: () {
+              BlocProvider.of<HomelistingCubit>(context)
+                  .DegenerateHomeListing();
               controller.animateTo(0);
             },
           ),

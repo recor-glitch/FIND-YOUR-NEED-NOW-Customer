@@ -1,4 +1,6 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:demoecommerce/BusinessLogic/HomeListing/cubit/homelisting_cubit.dart';
+import 'package:demoecommerce/BusinessLogic/category/cubit/category_cubit.dart';
 import 'package:demoecommerce/BusinessLogic/connectioncheck/cubit/connectioncheck_cubit.dart';
 import 'package:demoecommerce/BusinessLogic/profile/cubit/profile_cubit.dart';
 import 'package:demoecommerce/BusinessLogic/theme/cubit/theme_cubit.dart';
@@ -36,7 +38,9 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: ((context) => ThemeCubit()), lazy: true),
         BlocProvider(
             create: (context) =>
-                ConnectioncheckCubit(connectivity: connectivity))
+                ConnectioncheckCubit(connectivity: connectivity)),
+        BlocProvider(create: (context) => CategoryCubit(), lazy: true),
+        BlocProvider(create: (context) => HomelistingCubit(), lazy: true),
       ],
       child: BlocBuilder<ThemeCubit, ThemeState>(
         builder: (context, theme_state) {

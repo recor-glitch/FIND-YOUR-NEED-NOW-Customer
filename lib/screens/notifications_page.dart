@@ -1,6 +1,5 @@
 
 import 'package:demoecommerce/app_properties.dart';
-import 'package:demoecommerce/screens/rating/rating_page.dart';
 import 'package:demoecommerce/screens/tracking_page.dart';
 import 'package:flutter/material.dart';
 
@@ -264,9 +263,7 @@ class NotificationsPage extends StatelessWidget {
                             ]),
                           ),
                           InkWell(
-                            onTap: () => Navigator.of(context).push(
-                                MaterialPageRoute(
-                                    builder: (_) => RatingPage())),
+                            onTap: () {},
                             child: Container(
                                 padding: const EdgeInsets.all(14.0),
                                 decoration: BoxDecoration(

@@ -29,7 +29,7 @@ class AutoRouter {
         return MaterialPageRoute(builder: (_) => MainPage());
       case '/phn':
         return MaterialPageRoute(builder: (_) => PhoneNumber());
-        case '/nointernet':
+      case '/nointernet':
         return MaterialPageRoute(builder: (_) => NoInternet());
       default:
         return null;

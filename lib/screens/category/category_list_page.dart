@@ -1,8 +1,7 @@
-
-import 'package:demoecommerce/app_properties.dart';
+import 'package:demoecommerce/BusinessLogic/category/cubit/category_cubit.dart';
 import 'package:demoecommerce/models/category.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'components/staggered_category_card.dart';
 
@@ -12,58 +11,14 @@ class CategoryListPage extends StatefulWidget {
 }
 
 class _CategoryListPageState extends State<CategoryListPage> {
-  List<Category> categories = [
-    Category(
-      Color(0xffFCE183),
-      Color(0xffF68D7F),
-      'Gadgets',
-      'assets/jeans_5.png',
-    ),
-    Category(
-      Color(0xffF749A2),
-      Color(0xffFF7375),
-      'Clothes',
-      'assets/jeans_5.png',
-    ),
-    Category(
-      Color(0xff00E9DA),
-      Color(0xff5189EA),
-      'Fashion',
-      'assets/jeans_5.png',
-    ),
-    Category(
-      Color(0xffAF2D68),
-      Color(0xff632376),
-      'Home',
-      'assets/jeans_5.png',
-    ),
-    Category(
-      Color(0xff36E892),
-      Color(0xff33B2B9),
-      'Beauty',
-      'assets/jeans_5.png',
-    ),
-    Category(
-      Color(0xffF123C4),
-      Color(0xff668CEA),
-      'Appliances',
-      'assets/jeans_5.png',
-    ),
-  ];
-
   List<Category> searchResults = [];
   TextEditingController searchController = TextEditingController();
 
   @override
-  void initState() {
-    super.initState();
-    searchResults = categories;
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return Material(
-      child: Container(
+    return Scaffold(
+      backgroundColor: Colors.grey.shade200,
+      body: Container(
         margin: const EdgeInsets.only(top: kToolbarHeight),
         padding: EdgeInsets.symmetric(horizontal: 16.0),
         child: Column(
@@ -94,43 +49,25 @@ class _CategoryListPageState extends State<CategoryListPage> {
                     border: InputBorder.none,
                     hintText: 'Search',
                     prefixIcon: Icon(Icons.search, size: 30)),
-                onChanged: (value) {
-                  if (value.isNotEmpty) {
-                    List<Category> tempList = [];
-                    categories.forEach((category) {
-                      if (category.category.toLowerCase().contains(value)) {
-                        tempList.add(category);
-                      }
-                    });
-                    setState(() {
-                      searchResults.clear();
-                      searchResults.addAll(tempList);
-                    });
-                    return;
-                  } else {
-                    setState(() {
-                      searchResults.clear();
-                      searchResults.addAll(categories);
-                    });
-                  }
-                },
+                onChanged: (value) {},
               ),
             ),
             Flexible(
-              child: ListView.builder(
-                itemCount: searchResults.length,
-                itemBuilder: (_, index) => Padding(
-                  padding: EdgeInsets.symmetric(
-                    vertical: 16.0,
-                  ),
-                  child: StaggeredCardCard(
-                    begin: searchResults[index].begin,
-                    end: searchResults[index].end,
-                    categoryName: searchResults[index].category,
-                    assetPath: searchResults[index].image,
-                  ),
-                ),
-              ),
+              child: BlocBuilder<CategoryCubit, CategoryState>(
+                  builder: (BuildContext context, state) {
+                if (state is CategoryLoaded) {
+                  return ListView.builder(
+                      itemCount: state.snap.size,
+                      itemBuilder: (BuildContext context, int index) {
+                        return StaggeredCardCard(
+                            categoryName:
+                                state.snap.docs[index].get('category'),
+                            assetPath: state.snap.docs[index].get('img'));
+                      });
+                } else {
+                  return Center(child: CircularProgressIndicator());
+                }
+              }),
             )
           ],
         ),
