@@ -6,6 +6,7 @@ import 'package:demoecommerce/models/productmodel.dart';
 import 'package:demoecommerce/screens/detail/components/colorcircle.dart';
 import 'package:demoecommerce/screens/detail/components/customcontainer.dart';
 import 'package:demoecommerce/screens/detail/components/customsellercard.dart';
+import 'package:demoecommerce/screens/detail/components/expanddesc.dart';
 import 'package:demoecommerce/screens/detail/components/quantity.dart';
 import 'package:demoecommerce/screens/detail/components/selectseller.dart';
 import 'package:demoecommerce/screens/detail/components/sizecontainer.dart';
@@ -20,6 +21,7 @@ class Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => ImageCubit(product.img)),
@@ -107,8 +109,7 @@ class Body extends StatelessWidget {
                           SizedBox(
                               height:
                                   MediaQuery.of(context).size.height * 0.02),
-                          Text(product.desc,
-                              maxLines: 3, overflow: TextOverflow.ellipsis),
+                          ExpandedDesc(desc: product.desc)
                         ]),
                   ),
                   product.sizes.isNotEmpty

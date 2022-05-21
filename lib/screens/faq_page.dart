@@ -66,7 +66,7 @@ class _FaqPageState extends State<FaqPage> {
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
                         fontSize: 18.0),
-                  ),
+                  ), 
                 ),... panels.map((panel)=>ExpansionTile(
                       title: Text(
                         panel.title,

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:demoecommerce/BusinessLogic/theme/cubit/theme_cubit.dart';
 import 'package:demoecommerce/screens/faq_page.dart';
 import 'package:demoecommerce/screens/settings/settings_page.dart';
@@ -35,9 +36,7 @@ class ProfilePage extends StatelessWidget {
                               ? SizedBox(
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(50),
-                                    child: Image(
-                                        image: NetworkImage(state.img),
-                                        fit: BoxFit.cover),
+                                    child: CachedNetworkImage(imageUrl: state.img, fit: BoxFit.cover),
                                   ),
                                   width: 100,
                                   height: 100,
